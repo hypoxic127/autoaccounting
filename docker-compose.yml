@@ -1,0 +1,9 @@
+services:
+  finance-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    container_name: finance-frontend
