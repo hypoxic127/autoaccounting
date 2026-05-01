@@ -26,13 +26,15 @@ export default function SubmitButton({
       disabled={!canSubmit}
       onClick={onClick}
       className={`
-        w-full py-3.5 rounded-xl text-sm font-semibold tracking-wide
+        btn-glow w-full py-3.5 rounded-xl text-sm font-semibold tracking-wide
         flex items-center justify-center gap-2
-        transition-all duration-300 ease-in-out
+        transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
         focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2
         ${canSubmit
-          ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md shadow-primary-500/25 hover:shadow-lg hover:shadow-primary-500/30 hover:scale-[1.01] active:scale-[0.99]'
-          : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+          ? loading
+            ? 'shimmer text-white shadow-lg shadow-primary-500/20 cursor-wait'
+            : 'bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/20 hover:shadow-xl hover:shadow-primary-500/25 hover:-translate-y-0.5 active:translate-y-0 active:shadow-md cursor-pointer'
+          : 'bg-slate-100 text-slate-400 cursor-not-allowed opacity-60'
         }
       `}
     >

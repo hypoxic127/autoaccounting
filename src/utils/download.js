@@ -26,9 +26,30 @@ export async function downloadFromResponse(res, fallbackName = '下载文件.xls
   const blob = new Blob([rawBlob], {
     type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   })
-  const url = URL.createObjectURL(blob)
 
-  // 使用隐藏的 <a> 标签触发下载
+  // ── 3. 优先使用 showSaveFilePicker（彻底避免 UUID 文件名问题） ──
+  if (typeof window.showSaveFilePicker === 'function') {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: filename,
+        types: [{
+          description: 'Excel 文件',
+          accept: { 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'] },
+        }],
+      })
+      const writable = await handle.createWritable()
+      await writable.write(blob)
+      await writable.close()
+      return // 成功，直接返回
+    } catch (pickerErr) {
+      // 用户取消了保存对话框，不算错误，直接返回
+      if (pickerErr.name === 'AbortError') return
+      // 其他错误回退到 <a> 标签方式
+    }
+  }
+
+  // ── 4. Fallback：使用隐藏的 <a> 标签触发下载 ──
+  const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.style.display = 'none'
   a.href = url
@@ -38,10 +59,10 @@ export async function downloadFromResponse(res, fallbackName = '下载文件.xls
   // 用 requestAnimationFrame 确保 DOM 渲染完成后再触发点击
   requestAnimationFrame(() => {
     a.click()
-    // 延迟 1 秒清理，确保浏览器下载模块已完整读取
+    // 延迟 3 秒清理，给浏览器下载模块足够时间读取 download 属性
     setTimeout(() => {
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
-    }, 1000)
+    }, 3000)
   })
 }

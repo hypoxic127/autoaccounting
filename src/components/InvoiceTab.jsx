@@ -31,7 +31,7 @@ export default function InvoiceTab() {
     <>
       <FileUploadZone
         id="upload-invoice-source"
-        label="上传未开票账单数据（支持 .csv / .xlsx）"
+        label="上传未开票账单数据"
         file={sourceFile}
         onFileChange={setSourceFile}
       />

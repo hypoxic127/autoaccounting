@@ -33,14 +33,14 @@ export default function ReconcileTab() {
     <>
       <FileUploadZone
         id="upload-bank"
-        label="上传银行流水（支持 .csv / .xlsx）"
+        label="上传银行流水"
         file={bankFile}
         onFileChange={setBankFile}
       />
 
       <FileUploadZone
         id="upload-bill"
-        label="上传系统账单（支持 .csv / .xlsx）"
+        label="上传系统账单"
         file={billFile}
         onFileChange={setBillFile}
       />

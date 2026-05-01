@@ -62,6 +62,10 @@ export default function useFormSubmit({
 
       const res = await fetch(apiUrl, {
         method: 'POST',
+        headers: {
+          web_client: import.meta.env.VITE_N8N_AUTH_TOKEN || '',
+          // ⚠️ 不要手动设置 Content-Type！FormData 需要浏览器自动生成带 boundary 的值
+        },
         body: formData,
         signal: controller.signal,
       })
