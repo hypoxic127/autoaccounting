@@ -25,7 +25,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # 从 builder 阶段复制构建产物
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 80 443
 
 # 以前台模式运行 Nginx（容器不能 daemon）
 CMD ["nginx", "-g", "daemon off;"]

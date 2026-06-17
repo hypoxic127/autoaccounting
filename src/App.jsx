@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import ReconcileTab from './components/ReconcileTab'
 import InvoiceTab from './components/InvoiceTab'
+import tubiaoImg from '../image/tubiao.png'
 
 const TABS = [
   { key: 'reconcile', label: '自动对账',     icon: (
@@ -108,13 +109,26 @@ export default function App() {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-center gap-1.5 mt-6">
-          <svg className="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg>
-          <p className="text-xs text-slate-400 tracking-wide">
-            数据仅用于财务处理，不会被存储或泄露
-          </p>
+        <div className="flex flex-col items-center gap-2 mt-6">
+          <div className="flex items-center gap-1.5">
+            <svg className="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <p className="text-xs text-slate-400 tracking-wide">
+              数据仅用于财务处理，不会被存储或泄露
+            </p>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <img src={tubiaoImg} alt="公安备案图标" className="w-4 h-4" />
+            <a
+              href="https://beian.mps.gov.cn/#/query/webSearch?code=36083002000214"
+              rel="noreferrer"
+              target="_blank"
+              className="text-xs text-slate-400 tracking-wide hover:text-slate-600 transition-colors duration-200"
+            >
+              赣公网安备36083002000214号
+            </a>
+          </div>
         </div>
       </div>
     </div>
